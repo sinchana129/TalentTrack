@@ -28,7 +28,7 @@ def create_task(current_user):
         'created_at': datetime.utcnow()
     }
     
-    result = db.db.tasks.insert_one(task)
+    result = db.tasks.insert_one(task)
     return jsonify({'message': 'Task created successfully', 'task_id': str(result.inserted_id)}), 201
 
 @bp.route('/', methods=['GET'])
@@ -36,10 +36,10 @@ def create_task(current_user):
 def get_tasks(current_user):
     if current_user['role'] == 'Admin':
         # Admins see all tasks they created or all tasks in general
-        tasks = list(db.db.tasks.find())
+        tasks = list(db.tasks.find())
     else:
         # Users see only tasks assigned to them
-        tasks = list(db.db.tasks.find({'assigned_to': ObjectId(current_user['id'])}))
+        tasks = list(db.tasks.find({'assigned_to': ObjectId(current_user['id'])}))
         
     # Format ObjectIds to strings
     for task in tasks:
@@ -58,7 +58,7 @@ def update_task_status(current_user, task_id):
     if new_status not in ['Pending', 'In Progress', 'Completed']:
         return jsonify({'message': 'Invalid status'}), 400
         
-    task = db.db.tasks.find_one({'_id': ObjectId(task_id)})
+    task = db.tasks.find_one({'_id': ObjectId(task_id)})
     if not task:
         return jsonify({'message': 'Task not found'}), 404
         
@@ -66,7 +66,7 @@ def update_task_status(current_user, task_id):
     if current_user['role'] != 'Admin' and str(task['assigned_to']) != current_user['id']:
         return jsonify({'message': 'Unauthorized to update this task'}), 403
         
-    db.db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'status': new_status}})
+    db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'status': new_status}})
     return jsonify({'message': 'Task status updated'}), 200
 
 @bp.route('/<task_id>/feedback', methods=['PUT'])
@@ -79,7 +79,7 @@ def add_feedback(current_user, task_id):
     if not feedback:
         return jsonify({'message': 'Feedback is required'}), 400
         
-    result = db.db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'feedback': feedback}})
+    result = db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'feedback': feedback}})
     
     if result.matched_count == 0:
         return jsonify({'message': 'Task not found'}), 404

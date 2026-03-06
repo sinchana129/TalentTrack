@@ -53,6 +53,9 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <div style={{ textAlign: 'right', marginTop: '0.25rem' }}>
+                            <Link to="/forgot-password" style={{ fontSize: '0.8rem', color: 'var(--primary)', textDecoration: 'none' }}>Forgot password?</Link>
+                        </div>
                     </div>
 
                     <button
