@@ -85,3 +85,42 @@ def add_feedback(current_user, task_id):
         return jsonify({'message': 'Task not found'}), 404
         
     return jsonify({'message': 'Feedback added successfully'}), 200
+
+@bp.route('/<task_id>', methods=['PUT'])
+@token_required
+@admin_required
+def edit_task(current_user, task_id):
+    data = request.json
+    
+    update_fields = {}
+    if 'title' in data:
+        update_fields['title'] = data['title']
+    if 'description' in data:
+        update_fields['description'] = data['description']
+    if 'assigned_to' in data:
+        update_fields['assigned_to'] = ObjectId(data['assigned_to'])
+    if 'status' in data:
+        if data['status'] not in ['Pending', 'In Progress', 'Completed']:
+            return jsonify({'message': 'Invalid status'}), 400
+        update_fields['status'] = data['status']
+        
+    if not update_fields:
+        return jsonify({'message': 'No fields provided to update'}), 400
+        
+    result = db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': update_fields})
+    
+    if result.matched_count == 0:
+        return jsonify({'message': 'Task not found'}), 404
+        
+    return jsonify({'message': 'Task updated successfully'}), 200
+
+@bp.route('/<task_id>', methods=['DELETE'])
+@token_required
+@admin_required
+def delete_task(current_user, task_id):
+    result = db.tasks.delete_one({'_id': ObjectId(task_id)})
+    
+    if result.deleted_count == 0:
+        return jsonify({'message': 'Task not found'}), 404
+        
+    return jsonify({'message': 'Task deleted successfully'}), 200
