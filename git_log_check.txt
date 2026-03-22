@@ -1,0 +1,3 @@
+7d30ccc Sprint 2 – Core System Development
+acbe11b Add remaining frontend pages and context
+b3d3871 Completed Sprint 2 Task Management (Edit/Delete tasks and Dashboard UI enhancements)

@@ -1,0 +1,134 @@
+commit 7d30ccc833ba20732851fffea5f5bae899d3af20
+Author: Your Name <test@example.com>
+Date:   Sat Mar 14 21:35:56 2026 +0530
+
+    Sprint 2 – Core System Development
+
+A	Sprint 2 task/error.log
+R100	frontend/index.html	Sprint 2 task/index.html
+A	Sprint 2 task/package-lock.json
+R100	frontend/package.json	Sprint 2 task/package.json
+R100	frontend/src/App.jsx	Sprint 2 task/src/App.jsx
+R100	frontend/src/components/api.js	Sprint 2 task/src/components/api.js
+R100	frontend/src/context/AuthContext.jsx	Sprint 2 task/src/context/AuthContext.jsx
+R100	frontend/src/index.css	Sprint 2 task/src/index.css
+R100	frontend/src/main.jsx	Sprint 2 task/src/main.jsx
+R100	frontend/src/pages/AdminDashboard.jsx	Sprint 2 task/src/pages/AdminDashboard.jsx
+R100	frontend/src/pages/ForgotPassword.jsx	Sprint 2 task/src/pages/ForgotPassword.jsx
+R100	frontend/src/pages/Login.jsx	Sprint 2 task/src/pages/Login.jsx
+R100	frontend/src/pages/Register.jsx	Sprint 2 task/src/pages/Register.jsx
+R100	frontend/src/pages/ResetPassword.jsx	Sprint 2 task/src/pages/ResetPassword.jsx
+R100	frontend/src/pages/UserDashboard.jsx	Sprint 2 task/src/pages/UserDashboard.jsx
+R100	frontend/vite.config.js	Sprint 2 task/vite.config.js
+A	TalentTrack
+D	backend/.env
+D	backend/.env.example
+D	backend/app/__init__.py
+D	backend/app/__pycache__/__init__.cpython-314.pyc
+D	backend/app/__pycache__/config.cpython-314.pyc
+D	backend/app/__pycache__/db.cpython-314.pyc
+D	backend/app/config.py
+D	backend/app/db.py
+D	backend/app/routes/__pycache__/auth_routes.cpython-314.pyc
+D	backend/app/routes/__pycache__/task_routes.cpython-314.pyc
+D	backend/app/routes/__pycache__/user_routes.cpython-314.pyc
+D	backend/app/routes/auth_routes.py
+D	backend/app/routes/task_routes.py
+D	backend/app/routes/user_routes.py
+D	backend/app/utils/__pycache__/auth.cpython-314.pyc
+D	backend/app/utils/auth.py
+D	backend/requirements.txt
+D	backend/run.py
+
+commit acbe11bd7a5ccbde6d6446738750d69a20cfabc0
+Author: Your Name <test@example.com>
+Date:   Sat Mar 14 21:20:47 2026 +0530
+
+    Add remaining frontend pages and context
+
+A	frontend/src/context/AuthContext.jsx
+A	frontend/src/index.css
+A	frontend/src/pages/ForgotPassword.jsx
+A	frontend/src/pages/ResetPassword.jsx
+
+commit b3d387132177710207d7e7e03c14004201098628
+Author: Your Name <test@example.com>
+Date:   Tue Mar 10 09:43:47 2026 +0530
+
+    Completed Sprint 2 Task Management (Edit/Delete tasks and Dashboard UI enhancements)
+
+M	backend/app/routes/task_routes.py
+A	frontend/src/pages/AdminDashboard.jsx
+A	frontend/src/pages/UserDashboard.jsx
+
+commit be39323dc62d24a04e8faa0bf525f9fc85ce777b
+Author: Your Name <test@example.com>
+Date:   Fri Mar 6 21:53:28 2026 +0530
+
+    Sprint 1 – Foundation and Authentication setup
+
+A	.gitignore
+M	backend/.env
+M	backend/app/routes/__pycache__/auth_routes.cpython-314.pyc
+M	backend/app/routes/__pycache__/task_routes.cpython-314.pyc
+M	backend/app/routes/__pycache__/user_routes.cpython-314.pyc
+M	backend/app/routes/auth_routes.py
+M	backend/app/routes/task_routes.py
+M	backend/app/routes/user_routes.py
+D	frontend/.gitignore
+D	frontend/README.md
+D	frontend/eslint.config.js
+D	frontend/package-lock.json
+D	frontend/public/vite.svg
+D	frontend/src/App.css
+M	frontend/src/App.jsx
+D	frontend/src/assets/react.svg
+D	frontend/src/context/AuthContext.jsx
+D	frontend/src/index.css
+D	frontend/src/pages/AdminDashboard.jsx
+M	frontend/src/pages/Login.jsx
+D	frontend/src/pages/UserDashboard.jsx
+
+commit f4f7ef54c47dc049b740b7e5631a9f1293059bee
+Author: Your Name <test@example.com>
+Date:   Fri Mar 6 11:52:40 2026 +0530
+
+    Initial commit of TalentTrack rebuild
+
+A	backend/.env
+A	backend/.env.example
+A	backend/app/__init__.py
+A	backend/app/__pycache__/__init__.cpython-314.pyc
+A	backend/app/__pycache__/config.cpython-314.pyc
+A	backend/app/__pycache__/db.cpython-314.pyc
+A	backend/app/config.py
+A	backend/app/db.py
+A	backend/app/routes/__pycache__/auth_routes.cpython-314.pyc
+A	backend/app/routes/__pycache__/task_routes.cpython-314.pyc
+A	backend/app/routes/__pycache__/user_routes.cpython-314.pyc
+A	backend/app/routes/auth_routes.py
+A	backend/app/routes/task_routes.py
+A	backend/app/routes/user_routes.py
+A	backend/app/utils/__pycache__/auth.cpython-314.pyc
+A	backend/app/utils/auth.py
+A	backend/requirements.txt
+A	backend/run.py
+A	frontend/.gitignore
+A	frontend/README.md
+A	frontend/eslint.config.js
+A	frontend/index.html
+A	frontend/package-lock.json
+A	frontend/package.json
+A	frontend/public/vite.svg
+A	frontend/src/App.css
+A	frontend/src/App.jsx
+A	frontend/src/assets/react.svg
+A	frontend/src/components/api.js
+A	frontend/src/context/AuthContext.jsx
+A	frontend/src/index.css
+A	frontend/src/main.jsx
+A	frontend/src/pages/AdminDashboard.jsx
+A	frontend/src/pages/Login.jsx
+A	frontend/src/pages/Register.jsx
+A	frontend/src/pages/UserDashboard.jsx
+A	frontend/vite.config.js
