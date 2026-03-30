@@ -4,6 +4,7 @@ import api from '../components/api';
 import toast from 'react-hot-toast';
 import { LogOut, Plus, List, Users, BarChart2, Edit, Trash2, X } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function AdminDashboard() {
     const { user, logout } = useContext(AuthContext);
@@ -265,16 +266,50 @@ export default function AdminDashboard() {
                                 <h3 style={{ fontSize: '1rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Completed</h3>
                                 <p style={{ fontSize: '2.5rem', fontWeight: 700, margin: 0, color: '#10b981' }}>{analytics.completed}</p>
                             </div>
-                            <div className="glass animate-slide-up" style={{ padding: '2rem', textAlign: 'center', gridColumn: '1 / -1' }}>
-                                <h3 style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Task Completion Rate</h3>
-                                <div style={{ height: '2rem', backgroundColor: 'var(--border)', borderRadius: '1rem', overflow: 'hidden', marginBottom: '1rem', width: '100%' }}>
-                                    <div style={{ height: '100%', width: `${analytics.completion_rate}%`, backgroundColor: '#10b981', transition: 'width 0.5s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 600, fontSize: '0.875rem' }}>
-                                        {analytics.completion_rate >= 5 ? `${analytics.completion_rate}%` : ''}
+                            <div className="glass animate-slide-up" style={{ padding: '2rem', gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'center' }}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <h3 style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Task Completion Rate</h3>
+                                    <div style={{ height: '2rem', backgroundColor: 'var(--border)', borderRadius: '1rem', overflow: 'hidden', margin: '0 auto 1.5rem', width: '100%', maxWidth: '400px' }}>
+                                        <div style={{ height: '100%', width: `${analytics.completion_rate}%`, backgroundColor: '#10b981', transition: 'width 0.5s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 600, fontSize: '0.875rem' }}>
+                                            {analytics.completion_rate >= 5 ? `${analytics.completion_rate}%` : ''}
+                                        </div>
                                     </div>
+                                    <p style={{ fontSize: '1.1rem', fontWeight: 500 }}>
+                                        {analytics.completion_rate}% of tasks have been completed
+                                    </p>
                                 </div>
-                                <p style={{ fontSize: '1.1rem', fontWeight: 500 }}>
-                                    {analytics.completion_rate}% of tasks have been completed
-                                </p>
+                                <div style={{ height: '250px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <h3 style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Status Distribution</h3>
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                            <Pie
+                                                data={[
+                                                    { name: 'Completed', value: analytics.completed, color: '#10b981' },
+                                                    { name: 'In Progress', value: analytics.in_progress, color: '#3b82f6' },
+                                                    { name: 'Pending', value: analytics.pending, color: '#f59e0b' }
+                                                ].filter(d => d.value > 0)}
+                                                cx="50%"
+                                                cy="50%"
+                                                innerRadius={60}
+                                                outerRadius={80}
+                                                paddingAngle={5}
+                                                dataKey="value"
+                                            >
+                                                {([
+                                                    { name: 'Completed', value: analytics.completed, color: '#10b981' },
+                                                    { name: 'In Progress', value: analytics.in_progress, color: '#3b82f6' },
+                                                    { name: 'Pending', value: analytics.pending, color: '#f59e0b' }
+                                                ].filter(d => d.value > 0)).map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))}
+                                            </Pie>
+                                            <Tooltip 
+                                                contentStyle={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border)', borderRadius: '0.5rem', color: 'var(--text)' }}
+                                                itemStyle={{ color: 'var(--text)' }}
+                                            />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
                             </div>
                         </div>
                     </div>

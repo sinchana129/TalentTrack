@@ -2,8 +2,9 @@ import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../components/api';
 import toast from 'react-hot-toast';
-import { LogOut, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+import { LogOut, CheckCircle, Clock, AlertCircle, Sparkles } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
+import confetti from 'canvas-confetti';
 
 export default function UserDashboard() {
     const { user, logout } = useContext(AuthContext);
@@ -28,7 +29,17 @@ export default function UserDashboard() {
     const handleUpdateStatus = async (taskId, newStatus) => {
         try {
             await api.put(`/tasks/${taskId}/status`, { status: newStatus });
-            toast.success(`Task marked as ${newStatus}`);
+            if (newStatus === 'Completed') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6']
+                });
+                toast.success('Task completed! Great job! 🎉');
+            } else {
+                toast.success(`Task marked as ${newStatus}`);
+            }
             fetchTasks();
         } catch (err) {
             toast.error('Failed to update status');
@@ -59,6 +70,25 @@ export default function UserDashboard() {
             </nav>
 
             <main className="container animate-fade-in">
+                {/* AI Summary Widget */}
+                {tasks.length > 0 && (
+                    <div className="card glass animate-slide-up" style={{ marginBottom: '2rem', display: 'flex', alignItems: 'flex-start', gap: '1rem', background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05))', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
+                        <div style={{ backgroundColor: 'rgba(139, 92, 246, 0.1)', padding: '0.75rem', borderRadius: '50%', color: '#8b5cf6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Sparkles size={24} />
+                        </div>
+                        <div>
+                            <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.5rem', color: '#8b5cf6', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                AI Focus Summary
+                            </h3>
+                            <p style={{ color: 'var(--text)', lineHeight: '1.5', margin: 0 }}>
+                                {tasks.filter(t => t.status === 'Completed').length === tasks.length 
+                                    ? "Incredible work! You've completed all your assigned tasks. Take a well-deserved break! 🎉" 
+                                    : `You have ${tasks.filter(t => t.status === 'Pending').length} pending tasks and ${tasks.filter(t => t.status === 'In Progress').length} in progress. ${tasks.filter(t => t.status === 'Pending').length > 0 ? "Focus on finishing your pending tasks to stay on track." : "Keep up the momentum on your active tasks!"} You're doing great!`}
+                            </p>
+                        </div>
+                    </div>
+                )}
+
                 <div className="card">
                     <h2 style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>My Assigned Tasks</h2>
 
